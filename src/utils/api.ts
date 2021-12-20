@@ -1,8 +1,9 @@
+import { User, RequestBody } from "./types";
 
 export const host = `http://localhost:3000/`
 
 // complete me
-export const sendRequest = async (endpoint: string, method: string, bodyParam?: Record<string, any>) => {
+export const sendRequest = async (endpoint: string, method: string, bodyParam?: RequestBody) => {
   const headers = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -24,12 +25,13 @@ export const handleLogout = async () => {
   // complete me
 };
 
-export const handleLogin = async (body) => {
+export const handleLogin = async (body: Body) => {
   await sendRequest('login', 'POST', body);
   // complete me
 }
 
-export const asumsignInWithJWT = async () => {
-  await
+export const signInWithJWT = async () => {
+  return { data: null }
+  // await
   // complete me
 }

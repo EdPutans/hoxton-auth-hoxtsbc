@@ -1,7 +1,4 @@
-.App {
-}
-
-h1,h2,h3,h4,h5,h6, p {
+h1,h2,h3,h4,h5,h6,p {
   margin: 0;
 }
 
@@ -17,13 +14,12 @@ header {
 }
 
 main {
-  background-color: #a5898b;
+  background-color: #ececec;
   min-height: 100vh;
-  display: grid;
-  place-content: center ;
+  padding: 120px 80px;
   font-size: calc(10px + 2vmin);
-
 }
+
 
 button {
   font-size: calc(10px + 2vmin);

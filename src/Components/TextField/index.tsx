@@ -1,4 +1,5 @@
 import './style.css';
+import React from 'react'
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
   value: string;
@@ -11,4 +12,4 @@ const Input = ({ value, handleChange, ...rest }: Props) =>
   </div>
 
 
-export default Input
+export default React.memo(Input);

@@ -1,0 +1,14 @@
+
+.logged-in-page__header {
+   grid-column-start: 1;
+   grid-column-end: 3;
+}
+
+.logged-in-page__bottom{
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.logged-in-page__logout-container{
+  grid-column-start: 2;
+}

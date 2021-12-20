@@ -1,33 +1,35 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import './App.css';
-import Card from './Components/Card';
-import TextField from './Components/TextField';
 import { User } from './utils/types';
 import * as api from '././utils/api';
+import SignedOutPage from './Components/SignedOutPage';
+import LoggedInPage from './Components/LoggedInPage';
+
+
 
 const App = function () {
   const [userData, setUserData] = React.useState<User | null>(null);
 
   React.useEffect(() => {
     api.signInWithJWT()
-      .then(resp => setUserData(resp.data));
+      .then(resp => {
+        if (!resp?.data) {
+          console.error('Error in signInWithJWT', resp);
+          return;
+        }
+        setUserData(resp.data)
+      });
   }, [])
-  // const isLoggedIn = !!userData;
+
 
   return (
-    <div className="App">
+    <div>
       <header>
         <img src='./src/logo.png' style={{ maxHeight: '100%' }} />
       </header>
-      <main className="App-header">
-        <Suspense fallback='loading...'>
-          <Card text=' Please log in to access your account' header='Welcome to HoxtSBC'>
-            <TextField handleChange={() => { }} value='' type='email' />
-            <TextField handleChange={() => { }} value='' type='password' />
-          </Card>
-        </Suspense>
+      <main>
+        {userData ? <LoggedInPage userData={userData} /> : <SignedOutPage />}
       </main>
-
     </div>
   );
 };
