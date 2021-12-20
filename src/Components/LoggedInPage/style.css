@@ -12,3 +12,15 @@
 .logged-in-page__logout-container{
   grid-column-start: 2;
 }
+
+.logged-in-page_transactions {
+  margin-top: 20px;
+}
+
+.logged-in-page_transactions span{
+  color: #555;
+
+  max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+}

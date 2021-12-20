@@ -1,4 +1,4 @@
-import { User, Transaction } from '../../utils/types';
+import { User } from '../../utils/types';
 import React from 'react'
 
 import { handleLogout } from '../../utils/api';
@@ -12,7 +12,7 @@ interface Props {
 
 const LoggedInPage = ({ userData: { fullName, amountInAccount, transactions } }: Props): JSX.Element => {
   return (
-    <div>
+    <>
       <div className='logged-in-page__bottom'>
         <Card header="Welcome," text={fullName}>
         </Card>
@@ -21,17 +21,19 @@ const LoggedInPage = ({ userData: { fullName, amountInAccount, transactions } }:
       </div>
       <div>
         <Card header='Recent transactions'>
-          {transactions.map(({ amount, currency, isPositive, receiverOrSender }) =>
-            <div>
-              <p>{receiverOrSender} | {isPositive ? '+' : '-'}{currency}{amount}</p>
-            </div>
-          )}
+          <div className='logged-in-page_transactions'>
+            {transactions.map(({ amount, currency, isPositive, receiverOrSender }) =>
+              <span>
+                <p>{receiverOrSender}</p> <p>|</p> <p>{isPositive ? '+' : '-'}{currency}{amount}</p>
+              </span>
+            )}
+          </div>
         </Card>
         <div className='logged-in-page__logout-container'>
           <Button text='Log out' handleClick={handleLogout} />
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
