@@ -1,6 +1,7 @@
 
 export type Transaction = {
-  id: string;
+  id: number;
+  user_id: number;
   amount: number;
   currency: string;
   receiverOrSender: string;

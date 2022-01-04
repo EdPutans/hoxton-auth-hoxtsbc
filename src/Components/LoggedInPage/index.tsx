@@ -22,9 +22,17 @@ const LoggedInPage = ({ userData: { fullName, amountInAccount, transactions } }:
       <div>
         <Card header='Recent transactions'>
           <div className='logged-in-page_transactions'>
-            {transactions.map(({ amount, currency, isPositive, receiverOrSender }) =>
+            {transactions.length && <span>
+              <p>Beneficiary</p>
+              <p>Date of completion</p>
+              <p>Amount</p>
+            </span>}
+            {transactions.map(({ amount, currency, isPositive, receiverOrSender, completedAt }) =>
               <span>
-                <p>{receiverOrSender}</p> <p>|</p> <p>{isPositive ? '+' : '-'}{currency}{amount}</p>
+
+                <p>{receiverOrSender}</p>
+                <p>{completedAt}</p>
+                <p>{isPositive ? '+ ' : '- '}{amount} {currency}</p>
               </span>
             )}
           </div>
