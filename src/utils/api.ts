@@ -1,6 +1,8 @@
 import { RequestBody } from "./types";
 
-export const host = `http://localhost:3001`;
+
+// FINISH-ME: set to your server's endpoint
+export const host = ``;
 
 export const sendRequest = async (endpoint: string, method: string, bodyParam?: RequestBody, token?: string) => {
   const headers: any = {
@@ -22,14 +24,13 @@ export const sendRequest = async (endpoint: string, method: string, bodyParam?: 
 }
 
 export const handleLogout = async () => {
-  localStorage.removeItem('token');
+  //FINISH-ME: remove token from local storage 
 
   window.location.href = '/';
 };
 
 export const handleSignUp = async (body: RequestBody) => {
   await sendRequest('signup', 'POST', body);
-
   window.location.href = '/';
 }
 
@@ -37,13 +38,17 @@ export const handleLogin = async (body: RequestBody) => {
   const result = await sendRequest('login', 'POST', body);
 
   const { data, token, error } = result;
-  localStorage.setItem('token', token);
+  // FINISH-ME: set token in local storage
 
   return { data, error }
 }
 
-export const signInWithJWT = async (token: string) => {
+export const signInWithJWT = async () => {
+
+  let token; // FINISH-ME: check for token
+  // Note: if token is not found, it can be 'undefined'(string)
+
   const result = await sendRequest('banking-info', 'GET', undefined, token);
 
-  return result;
+  return result || null;
 }

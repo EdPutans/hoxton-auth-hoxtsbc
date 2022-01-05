@@ -12,13 +12,12 @@ const App = function () {
   const [error, setError] = React.useState(null)
 
   React.useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token || token === "undefined") return;
+    api.signInWithJWT()
+      .then(resp => {
+        if (!resp) return;
 
-    api.signInWithJWT(token)
-      .then(resp =>
         resp.data && setUserData(resp.data)
-      )
+      })
   }, [])
 
   const handleLogin = React.useCallback((email, password) => {
