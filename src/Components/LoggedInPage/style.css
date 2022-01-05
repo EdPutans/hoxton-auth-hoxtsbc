@@ -20,7 +20,7 @@
 .logged-in-page_transactions span{
   color: #555;
   display: grid;
-  grid-template-columns: auto 200px 100px;
+  grid-template-columns: auto 200px 150px;
 }
 
 .logged-in-page_transactions span:hover{

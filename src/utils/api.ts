@@ -1,13 +1,14 @@
 import { RequestBody } from "./types";
 
-export const host = `http://localhost:3000/`
+export const host = `http://localhost:3001`;
 
-// complete me
-export const sendRequest = async (endpoint: string, method: string, bodyParam?: RequestBody) => {
-  const headers = {
+export const sendRequest = async (endpoint: string, method: string, bodyParam?: RequestBody, token?: string) => {
+  const headers: any = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   };
+
+  if (token) headers.authorization = token;
 
   const body = bodyParam ? JSON.stringify(bodyParam) : undefined
 
@@ -21,21 +22,28 @@ export const sendRequest = async (endpoint: string, method: string, bodyParam?: 
 }
 
 export const handleLogout = async () => {
-  await sendRequest('logout', 'POST')
-  // complete me
+  localStorage.removeItem('token');
+
+  window.location.href = '/';
 };
 
 export const handleSignUp = async (body: RequestBody) => {
   await sendRequest('signup', 'POST', body);
-  // complete me
+
+  window.location.href = '/';
 }
 
-export const handleLogin = async (body: Body) => {
-  await sendRequest('login', 'POST', body);
-  // complete me
+export const handleLogin = async (body: RequestBody) => {
+  const result = await sendRequest('login', 'POST', body);
+
+  const { data, token, error } = result;
+  localStorage.setItem('token', token);
+
+  return { data, error }
 }
 
-export const signInWithJWT = async () => {
-  // complete me
-  return { data: null }
+export const signInWithJWT = async (token: string) => {
+  const result = await sendRequest('banking-info', 'GET', undefined, token);
+
+  return result;
 }

@@ -2,11 +2,10 @@ import React from 'react'
 import Button from '../Button';
 import TextField from '../TextField';
 import * as api from '../../utils/api';
-
+import './style.css';
 type State = {
   email: string;
   password: string;
-  repeatPassword: string;
   fullName: string;
 }
 
@@ -16,12 +15,14 @@ interface Props {
 }
 
 const SignupForm = ({ isOpen, handleClose }: Props) => {
-  const [values, setValues] = React.useState<State>({ email: '', password: '', repeatPassword: '', fullName: '' });
+  const [values, setValues] = React.useState<State>({
+    email: '',
+    password: '',
+    fullName: ''
+  });
   const [error, setError] = React.useState<string>('');
 
-  if (!isOpen) return null;
-
-  const getHandleChange = React.useMemo(() => (key: string) => {
+  const getHandleChange = React.useCallback((key: keyof State) => {
 
     return (val: string) => setValues({ ...values, [key]: val });
   }, [setValues, values])
@@ -31,18 +32,24 @@ const SignupForm = ({ isOpen, handleClose }: Props) => {
       if (r.error) return setError(r.error);
 
       // feel free to improve the UX ;)
-      return handleClose();
+      handleClose();
     })
   }, [values])
 
+  const handleCloseModal = React.useCallback((event) => {
+    if (event.target === event.currentTarget) handleClose();
+  }, [handleClose])
+
+  if (!isOpen) return null;
+
   return (
-    <div className="SignupForm_modal" onClick={handleClose}>
+    <div className="SignupForm_modal" onClick={handleCloseModal}>
       <form className='SignupForm_form'>
-        <TextField value='test' placeholder='email' handleChange={getHandleChange('email')} />
-        <TextField value='test' placeholder='password' type='password' handleChange={getHandleChange('password')} />
-        <TextField value='test' placeholder='password' type='password' handleChange={getHandleChange('repeatPassword')} />
-        <TextField value='test' placeholder='email' handleChange={getHandleChange('email')} />
-        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <TextField value={values.email} placeholder='Email' handleChange={getHandleChange('email')} />
+        <TextField value={values.password} placeholder='Password' type='password' handleChange={getHandleChange('password')} />
+        <TextField value={values.fullName} placeholder='Full name' handleChange={getHandleChange('fullName')} />
+
+        {error && <p className='error-message'>{error}</p>}
         <Button type='submit' text="Register" handleClick={handleSubmit} />
       </form>
     </div>

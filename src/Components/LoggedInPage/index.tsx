@@ -27,12 +27,11 @@ const LoggedInPage = ({ userData: { fullName, amountInAccount, transactions } }:
               <p>Date of completion</p>
               <p>Amount</p>
             </span>}
-            {transactions.map(({ amount, currency, isPositive, receiverOrSender, completedAt }) =>
-              <span>
-
+            {transactions.map(({ amount, currency, isPositive, receiverOrSender, completedAt, id }) =>
+              <span key={id}>
                 <p>{receiverOrSender}</p>
                 <p>{completedAt}</p>
-                <p>{isPositive ? '+ ' : '- '}{amount} {currency}</p>
+                <p>{isPositive ? '+ ' : '- '}{amount.toFixed(2)} {currency}</p>
               </span>
             )}
           </div>
